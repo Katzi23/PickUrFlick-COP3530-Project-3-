@@ -1,5 +1,11 @@
 Add information for running your code...
 
+First download the title.basics.tsv.gz and title.ratings.tsv.gz datasets from from IMDd:
+https://datasets.imdbws.com/
+
+Then put them in the same folder as main.cpp
+
+
 <H1> COP3530 - Project 3 </h1>
 This is the template for Project 3 repositories. It includes all the assignment instructions and documentation to help you use GitHub.
 
