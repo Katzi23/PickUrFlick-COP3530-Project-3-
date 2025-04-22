@@ -30,6 +30,17 @@ int safe_stoi(const std::string& s)
     }
 }
 
+float safe_stof(const std::string& s){
+    if (s.empty() || s == "\\N" || s == "<unset>"){
+        return -1.0f;
+    }
+    try {
+        return std::stof(s);
+    } catch (...){
+        return -1.0f;
+    }
+}
+
 int main()
 {
     // store everything in a map
@@ -59,8 +70,8 @@ int main()
         std::getline(iss, votesStr, '\t');
 
         // convert to needed variables
-        float rating = std::stof(ratingStr);
-        int votes = std::stoi(votesStr);
+        float rating = safe_stof(ratingStr);
+        int votes = safe_stoi(votesStr);
 
         // make a new data object with these values and add to items
         data* d = new data(id, rating, votes);
