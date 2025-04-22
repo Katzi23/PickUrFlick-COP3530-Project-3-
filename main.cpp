@@ -8,6 +8,8 @@
 #include <unordered_map>
 #include "ArrayQ.h"
 #include "ArrayQ.cpp"
+#include "MaxHeap.h"
+#pragma once
 
 // helper function for checking for bad data when converting to ints
 int safe_stoi(const std::string& s)
@@ -162,7 +164,10 @@ int main()
     {
         std::cout << "Building the max heap ... \n";
         // build the max heap
-
+        MaxHeap heap;
+        for (auto const& item : items){
+            heap.insert(item.second);
+        }
     }
     else
     {

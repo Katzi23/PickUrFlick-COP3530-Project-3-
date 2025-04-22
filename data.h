@@ -43,7 +43,6 @@ public:
     int getStartYear() const;
     int getRating() const;
     const std::string& getTitleType() const;
-
 };
 
 
