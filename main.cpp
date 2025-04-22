@@ -153,7 +153,6 @@ int main()
             ++it;
         }
     }
-    // pause
-    std::cout << "hi";
+
     return 0;
 }
