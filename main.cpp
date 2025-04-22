@@ -270,6 +270,5 @@ int main()
 
     // now search through the data structure for the top 3 results
 
-
     return 0;
 }
