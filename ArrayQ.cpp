@@ -21,3 +21,9 @@ data* ArrayQ::extractMax()
 {
     return priorityQ[0];
 }
+
+void ArrayQ::deleteTop()
+{
+    if (!priorityQ.empty())
+        priorityQ.erase(priorityQ.begin());
+}

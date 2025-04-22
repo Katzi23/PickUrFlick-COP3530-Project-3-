@@ -15,7 +15,7 @@ private:
     int rating, startYear, endYear, runtimeMinutes, numVotes;
     // if we don't know (bad data), it will be classified as adult
     bool isAdult;
-    // pointers for heap and list priority queue
+    // pointers for heap
     data* left;
     data* right;
     data* next;

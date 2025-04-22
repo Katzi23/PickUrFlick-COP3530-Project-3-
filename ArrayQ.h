@@ -9,6 +9,7 @@ struct ArrayQ
     std::vector<data*> priorityQ;
     // find position where element should go, insert it. O(n)
     void insert(data* d);
+    void deleteTop();
     // return the first element (has max rating)
     data* extractMax();
 }
