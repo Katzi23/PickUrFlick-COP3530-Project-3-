@@ -6,6 +6,8 @@
 #include "data.h"
 #include "data.cpp"
 #include <unordered_map>
+#include "ArrayQ.h"
+#include "ArrayQ.cpp"
 
 // helper function for checking for bad data when converting to ints
 int safe_stoi(const std::string& s)
@@ -28,12 +30,10 @@ int safe_stoi(const std::string& s)
 int main()
 {
     // store everything in a map
-    std::unordered_map<std::string, data> items;
+    std::unordered_map<std::string, data*> items;
+
 
     // this is all for ratings:
-
-    // deque to store the data for now
-//    std::deque<data> items;
 
     // open ratings file and make each data object
     std::ifstream file("title.ratings.tsv");
@@ -60,9 +60,8 @@ int main()
         int votes = std::stoi(votesStr);
 
         // make a new data object with these values and add to items
-        data d(id, rating, votes);
+        data* d = new data(id, rating, votes);
         items.insert({id, d});
-//        items.push_back(d);
 
     }
     file.close();
@@ -126,14 +125,14 @@ int main()
         if (it != items.end())
         {
             // Update the existing data object to add the "basics" info
-            it->second.setTitleType(titleType);
-            it->second.setPrimaryTitle(primaryTitle);
-            it->second.setOriginalTitle(originalTitle);
-            it->second.setGenres(genres);
-            it->second.setIsAdult(adult);
-            it->second.setStartYear(start);
-            it->second.setEndYear(end);
-            it->second.setRuntimeMinutes(runtime);
+            it->second->setTitleType(titleType);
+            it->second->setPrimaryTitle(primaryTitle);
+            it->second->setOriginalTitle(originalTitle);
+            it->second->setGenres(genres);
+            it->second->setIsAdult(adult);
+            it->second->setStartYear(start);
+            it->second->setEndYear(end);
+            it->second->setRuntimeMinutes(runtime);
         }
         else
             continue;
@@ -145,7 +144,7 @@ int main()
     for (auto it = items.begin(); it != items.end(); )
     {
         // titleType is only "" if it was not updated, remove it
-        if (!it->second.updated())
+        if (!it->second->updated())
         {
             // erase returns the next valid iterator
             it = items.erase(it);
@@ -153,7 +152,28 @@ int main()
             ++it;
         }
     }
-    // pause
-    std::cout << "hi";
+
+    // now we can begin actual user interaction
+    // first see what option user wants to use
+    std::cout<< "Welcome to PickUrFlick! \n Data can be stored in two kinds of priority queues, a max heap or a sorted array implementation. \n To begin, press 0 and then enter if you want to use a max heap, \n or press 1 and then enter if you want to use a sorted array \n";
+    int type;
+    std::cin >> type;
+    if (type == 0)
+    {
+        std::cout << "Building the max heap ... \n";
+        // build the max heap
+
+    }
+    else
+    {
+        std::cout << "Building the sorted array ... \n";
+        // build the sorted array
+        ArrayQ arr;
+        for (auto const& item : items)
+            arr.insert(item.second);
+    }
+
+    std::cout << "Data structure built! \n Now answer these questions to filter the results: \n";
+
     return 0;
 }
