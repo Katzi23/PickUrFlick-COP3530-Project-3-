@@ -56,3 +56,11 @@ data* MaxHeap::extractMaxRating() {
     return maxRating; //Return the movie with the highest rating
 }
 
+bool MaxHeap::isEmpty() {
+    if(heap.empty()){
+        return true;
+    } else {
+        return false;
+    }
+}
+

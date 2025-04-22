@@ -41,7 +41,7 @@ public:
     const std::string& getPrimaryTitle() const;
     int getRuntimeMinutes() const;
     int getStartYear() const;
-    int getRating() const;
+    float getRating() const;
     const std::string& getTitleType() const;
 };
 

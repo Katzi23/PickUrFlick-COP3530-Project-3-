@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <deque>
 #include <fstream>
 #include <sstream>
 #include "data.h"
@@ -39,6 +40,37 @@ float safe_stof(const std::string& s){
     } catch (...){
         return -1.0f;
     }
+}
+
+//Filter movie list based on the selected categories
+bool checkFilter(data* movie, int mov, int year, int beforeOrAfter, int yearData, int minRun, int minRuntime, int maxRun, int maxRuntime, int genre, const std::vector<std::string>& genresWanted) {
+    if (mov != -1){ //If Movie is a filter
+        if (mov == 1 && movie->getTitleType() != "movie") return false; //Check if movie is a movie or a short
+        if (mov == 0 && movie->getTitleType() != "short" ) return false;
+    }
+
+    if (year == 1) {
+        if (beforeOrAfter == 1 && movie->getStartYear() >= yearData) return false; //check if year is valid
+        if (beforeOrAfter == 0 && movie->getStartYear() <= yearData) return false;
+    }
+
+    if (minRun == 1 && movie->getRuntimeMinutes() < minRuntime) return false; //Check if runtime is valid
+    if (maxRun == 1 && movie->getRuntimeMinutes() > maxRuntime) return false;
+
+    if (genre == 1){ //Check genre based on list of genres wanted and list of genres of movie
+        bool genreCheck = false;
+        for (const auto& g : movie->getGenres()) {
+            for (const auto& want : genresWanted){
+                if (g == want) {
+                    genreCheck = true;
+                    break;
+                }
+            }
+            if (genreCheck) break;
+        }
+        if (!genreCheck) return false;
+    }
+    return true;
 }
 
 int main()
@@ -197,6 +229,7 @@ int main()
     int mov = -1;
 
 
+
     int year = -1;
     // if beforeOrAfter == 1 then search for before yearData, otherwise after
     int beforeOrAfter;
@@ -252,8 +285,8 @@ int main()
                      "Documentary, Drama, Family, Fantasy, Film-Noir, History, Horror, Music, Musical, Mystery, News, \n"
                      "Romance, Sci-Fi, Short, Sport, Thriller, War, Western \n";
         std::cout << "Type what genres you want exactly as they appear above, separated by spaces \n";
-
         // get the entire line
+        // Now, before getline:
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::getline(std::cin, genresStr);
 
@@ -267,6 +300,29 @@ int main()
     std::cout << "Input received! filtering results... \n";
 
     // now search through the data structure for the top 3 results
+    if (type == 1){
+        MaxHeap heap;
+        for (auto const& item : items){
+            heap.insert(item.second);
+        }
+        int found = 0;
+        std::cout << "Top 3 Results: \n";
+        while (!heap.isEmpty() && found < 3){
+            data* movie = heap.extractMaxRating();
+            if (checkFilter(movie, mov, year, beforeOrAfter, yearData, minRun, minRuntime, maxRun, maxRuntime, genre, genresWanted)){
+                std::cout << movie->getPrimaryTitle() << " (" << movie->getStartYear() << "), Rating: " << movie->getRating() << "\n";
+                found++;
+            }
+        }
+        if (found == 0){
+            std::cout << "No matches found based on your filters. \n";
+        }
+    } else if (type == 0){
+        ArrayQ arr;
+        for (auto const& item : items)
+            arr.insert(item.second);
 
+
+    }
     return 0;
 }
