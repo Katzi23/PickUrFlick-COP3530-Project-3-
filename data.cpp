@@ -69,3 +69,53 @@ bool data::updated()
 {
     return (this->titleType != "");
 }
+
+int data::getEndYear() const
+{
+    return this->endYear;
+}
+
+const std::vector<std::string>& data::getGenres() const
+{
+    return this->genres;
+}
+
+const std::string& data::getId() const
+{
+    return this->id;
+}
+
+bool data::getIsAdult() const
+{
+    return this->isAdult;
+}
+
+const std::string& data::getOriginalTitle() const
+{
+    return this->originalTitle;
+}
+
+const std::string& data::getPrimaryTitle() const
+{
+    return this->primaryTitle;
+}
+
+int data::getRuntimeMinutes() const
+{
+    return this->runtimeMinutes;
+}
+
+int data::getStartYear() const
+{
+    return this->startYear;
+}
+
+const std::string& data::getTitleType() const
+{
+    return this->titleType;
+}
+
+int data::getRating() const
+{
+    return this->rating;
+}
