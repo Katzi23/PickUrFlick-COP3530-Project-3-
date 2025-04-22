@@ -9,7 +9,8 @@
 #include "ArrayQ.h"
 #include "ArrayQ.cpp"
 #include "MaxHeap.h"
-#pragma once
+#include "MaxHeap.cpp"
+
 
 // helper function for checking for bad data when converting to ints
 int safe_stoi(const std::string& s)

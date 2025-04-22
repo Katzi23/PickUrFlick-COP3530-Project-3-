@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "data.h"
-#pragma once
+
 
 class MaxHeap
 {
