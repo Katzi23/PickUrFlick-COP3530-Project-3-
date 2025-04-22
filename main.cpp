@@ -10,6 +10,7 @@
 #include "ArrayQ.cpp"
 #include "MaxHeap.h"
 #include "MaxHeap.cpp"
+#include <limits>
 
 
 // helper function for checking for bad data when converting to ints
@@ -251,8 +252,10 @@ int main()
         std::cout << "Here are the available genres: Action, Adventure, Animation, Biography, Comedy, Crime, \n"
                      "Documentary, Drama, Family, Fantasy, Film-Noir, History, Horror, Music, Musical, Mystery, News, \n"
                      "Romance, Sci-Fi, Short, Sport, Thriller, War, Western \n";
-        std::cout << "Type what genres you want exactly as they appear above, separated by spaces";
+        std::cout << "Type what genres you want exactly as they appear above, separated by spaces \n";
         // get the entire line
+        // Now, before getline:
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::getline(std::cin, genresStr);
 
         // now convert into a list:
