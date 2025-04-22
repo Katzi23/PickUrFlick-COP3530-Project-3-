@@ -19,3 +19,53 @@ data::data(std::string id, std::string titleType, std::string primaryTitle, std:
     this->endYear = endYear;
     this->runtimeMinutes = runtimeMinutes;
 }
+
+void data::setEndYear(int endYear)
+{
+    this->endYear = endYear;
+}
+
+void data::setGenres(std::vector<std::string> genres)
+{
+    this->genres = genres;
+}
+
+void data::setId(std::string i)
+{
+    this->id = i;
+}
+
+void data::setIsAdult(bool adult)
+{
+    this->isAdult = adult;
+}
+
+void data::setOriginalTitle(std::string originalTitle)
+{
+    this->originalTitle = originalTitle;
+}
+
+void data::setPrimaryTitle(std::string primaryTitle)
+{
+    this->primaryTitle = primaryTitle;
+}
+
+void data::setRuntimeMinutes(int runtimeMinutes)
+{
+    this->runtimeMinutes = runtimeMinutes;
+}
+
+void data::setStartYear(int startYear)
+{
+    this->startYear = startYear;
+}
+
+void data::setTitleType(std::string titleType)
+{
+    this->titleType = titleType;
+}
+
+bool data::updated()
+{
+    return (this->titleType != "");
+}
