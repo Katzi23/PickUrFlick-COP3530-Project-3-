@@ -15,6 +15,7 @@ private:
 public:
     void insert(data* movie);
     data* extractMaxRating();
+    bool isEmpty();
 };
 
 

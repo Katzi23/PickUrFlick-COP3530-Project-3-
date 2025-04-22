@@ -115,7 +115,7 @@ const std::string& data::getTitleType() const
     return this->titleType;
 }
 
-int data::getRating() const
+float data::getRating() const
 {
     return this->rating;
 }
