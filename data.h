@@ -18,6 +18,16 @@ private:
 public:
     data(std::string id, float rating, int votes);
     data(std::string id, std::string titleType, std::string primaryTitle, std::string originalTitle, std::vector<std::string> genres, bool adult, int  startYear, int endYear, int runtimeMinutes);
+    void setId(std::string i);
+    void setTitleType(std::string titleType);
+    void setPrimaryTitle(std::string primaryTitle);
+    void setOriginalTitle(std::string originalTitle);
+    void setGenres(std::vector<std::string> genres);
+    void setIsAdult(bool adult);
+    void setStartYear(int startYear);
+    void setEndYear(int endYear);
+    void setRuntimeMinutes(int runtimeMinutes);
+    bool updated();
 
 };
 
