@@ -157,10 +157,10 @@ int main()
 
     // now we can begin actual user interaction
     // first see what option user wants to use
-    std::cout<< "Welcome to PickUrFlick! \n Data can be stored in two kinds of priority queues, a max heap or a sorted array implementation. \n To begin, press 0 and then enter if you want to use a max heap, \n or press 1 and then enter if you want to use a sorted array \n";
+    std::cout<< "Welcome to PickUrFlick! \n Data can be stored in two kinds of priority queues, a max heap or a sorted array implementation. \n To begin, press 1 and then enter if you want to use a max heap, \n or press 0 and then enter if you want to use a sorted array \n";
     int type;
     std::cin >> type;
-    if (type == 0)
+    if (type == 1)
     {
         std::cout << "Building the max heap ... \n";
         // build the max heap
@@ -178,7 +178,83 @@ int main()
             arr.insert(item.second);
     }
 
+    // create variables to determine what to sort
+    // if it's still equal to -1 then the user is not using it to sort
+
+    // if mov == 1 then the user only wants movies, otherwise only shorts
+    int mov = -1;
+
+
+    int year = -1;
+    // if beforeOrAfter == 1 then search for before yearData, otherwise after
+    int beforeOrAfter;
+    int yearData;
+
+    // same storage pattern as above
+    int minRun = -1;
+    int minRuntime;
+    int maxRun = -1;
+    int maxRuntime;
+
+    int genre = -1;
+    std::string genresStr;
+    std::vector<std::string> genresWanted;
+
     std::cout << "Data structure built! \n Now answer these questions to filter the results: \n";
+    std::cout << "Do you want to sort by title type? (Movies vs shorts) (enter 1 for yes and 0 for no)? \n";
+    int tts;
+    std::cin >> tts;
+    if (tts == 1)
+    {
+        std::cout << "enter 1 for movies, or 0 for shorts \n";
+        std::cin >> mov;
+    }
+    std::cout << "Do you want to sort by year? (enter 1 for yes and 0 for no) \n";
+    std::cin >> year;
+    if (year == 1)
+    {
+        std::cout << "Do you want to sort before (1) or after (0) a certain year?";
+        std::cin >> beforeOrAfter;
+        std::cout << "Input the cutoff year numerically (it will be included in the search)";
+        std::cin >> yearData;
+    }
+    std::cout << "Do you want to set a minimum runtime? (enter 1 for yes and 0 for no) \n";
+    std::cin >> minRun;
+    if (minRun == 1)
+    {
+        std::cout << "Enter a minimum runtime \n";
+        std::cin >> minRuntime;
+    }
+    std::cout << "Do you want to set a maximum runtime? (enter 1 for yes and 0 for no) \n";
+    std::cin >> maxRun;
+    if (maxRun == 1)
+    {
+        std::cout << "Enter a maximum runtime \n";
+        std::cin >> maxRuntime;
+    }
+    std::cout << "Do you want to sort by genre? (enter 1 for yes and 0 for no) \n";
+    std::cin >> genre;
+    if (genre == 1)
+    {
+        std::cout << "Here are the available genres: Action, Adventure, Animation, Biography, Comedy, Crime, \n"
+                     "Documentary, Drama, Family, Fantasy, Film-Noir, History, Horror, Music, Musical, Mystery, News, \n"
+                     "Romance, Sci-Fi, Short, Sport, Thriller, War, Western \n";
+        std::cout << "Type what genres you want exactly as they appear above, separated by spaces";
+        // get the entire line
+        std::getline(std::cin, genresStr);
+
+        // now convert into a list:
+        std::istringstream iss(genresStr);
+        std::string genre;
+        while (iss >> genre)
+            genresWanted.push_back(genre);
+    }
+
+    std::cout << "Input received! filtering results... \n";
+
+
+    // now search through the data structure for the top 3 results
+
 
     return 0;
 }
