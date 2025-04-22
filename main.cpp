@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <deque>
 #include <fstream>
 #include <sstream>
 #include "data.h"
@@ -266,7 +265,6 @@ int main()
     }
 
     std::cout << "Input received! filtering results... \n";
-
 
     // now search through the data structure for the top 3 results
 
