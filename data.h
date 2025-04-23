@@ -12,7 +12,8 @@ private:
     std::string id, titleType, primaryTitle, originalTitle;
     std::vector<std::string> genres;
     // use -1 for any missing ints
-    int rating, startYear, endYear, runtimeMinutes, numVotes;
+    int startYear, endYear, runtimeMinutes, numVotes;
+    float rating;
     // if we don't know (bad data), it will be classified as adult
     bool isAdult;
     // pointers for heap
@@ -42,6 +43,7 @@ public:
     int getRuntimeMinutes() const;
     int getStartYear() const;
     float getRating() const;
+    int getVotes() const;
     const std::string& getTitleType() const;
 };
 

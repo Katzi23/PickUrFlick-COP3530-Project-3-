@@ -19,7 +19,13 @@ void ArrayQ::insert(data* d)
 
 data* ArrayQ::extractMax()
 {
-    return priorityQ[0];
+    data* top = priorityQ.front();
+    priorityQ.erase(priorityQ.begin());
+    return top;
+}
+
+bool ArrayQ::isEmpty(){
+    return priorityQ.empty();
 }
 
 void ArrayQ::deleteTop()

@@ -44,11 +44,6 @@ float safe_stof(const std::string& s){
 
 //Filter movie list based on the selected categories
 bool checkFilter(data* movie, int mov, int year, int beforeOrAfter, int yearData, int minRun, int minRuntime, int maxRun, int maxRuntime, int genre, const std::vector<std::string>& genresWanted) {
-    if (mov != -1){ //If Movie is a filter
-        if (mov == 1 && movie->getTitleType() != "movie") return false; //Check if movie is a movie or a short
-        if (mov == 0 && movie->getTitleType() != "short" ) return false;
-    }
-
     if (year == 1) {
         if (beforeOrAfter == 1 && movie->getStartYear() >= yearData) return false; //check if year is valid
         if (beforeOrAfter == 0 && movie->getStartYear() <= yearData) return false;
@@ -61,6 +56,9 @@ bool checkFilter(data* movie, int mov, int year, int beforeOrAfter, int yearData
         bool genreCheck = false;
         for (const auto& g : movie->getGenres()) {
             for (const auto& want : genresWanted){
+                if (g == "Adult"){
+                    return false;
+                }
                 if (g == want) {
                     genreCheck = true;
                     break;
@@ -68,6 +66,7 @@ bool checkFilter(data* movie, int mov, int year, int beforeOrAfter, int yearData
             }
             if (genreCheck) break;
         }
+
         if (!genreCheck) return false;
     }
     return true;
@@ -86,6 +85,7 @@ int main()
     std::string line;
 
     // skip the header
+    file >> std::noskipws;
     std::getline(file, line);
 
     // go through each line of the file
@@ -204,22 +204,28 @@ int main()
     std::cout<< "Welcome to PickUrFlick! \n Data can be stored in two kinds of priority queues, a max heap or a sorted array implementation. \n To begin, press 1 and then enter if you want to use a max heap, \n or press 0 and then enter if you want to use a sorted array \n";
     int type;
     std::cin >> type;
+    MaxHeap heap;
+    ArrayQ arr;
     if (type == 1)
     {
         std::cout << "Building the max heap ... \n";
         // build the max heap
-        MaxHeap heap;
         for (auto const& item : items){
-            heap.insert(item.second);
+            data* movie = item.second;
+            if (movie->getVotes() < 25000) continue;
+            if (movie->getTitleType() != "movie") continue;
+            heap.insert(movie);
         }
-    }
-    else
-    {
+    } else {
         std::cout << "Building the sorted array ... \n";
         // build the sorted array
-        ArrayQ arr;
         for (auto const& item : items)
-            arr.insert(item.second);
+        {
+            data *movie = item.second;
+            if (movie->getVotes() < 25000) continue;
+            if (movie->getTitleType() != "movie") continue;
+            arr.insert(movie);
+        }
     }
 
     // create variables to determine what to sort
@@ -246,14 +252,7 @@ int main()
     std::vector<std::string> genresWanted;
 
     std::cout << "Data structure built! \n Now answer these questions to filter the results: \n";
-    std::cout << "Do you want to sort by title type? (Movies vs shorts) (enter 1 for yes and 0 for no)? \n";
-    int tts;
-    std::cin >> tts;
-    if (tts == 1)
-    {
-        std::cout << "enter 1 for movies, or 0 for shorts \n";
-        std::cin >> mov;
-    }
+
     std::cout << "Do you want to sort by year? (enter 1 for yes and 0 for no) \n";
     std::cin >> year;
     if (year == 1)
@@ -301,10 +300,6 @@ int main()
 
     // now search through the data structure for the top 3 results
     if (type == 1){
-        MaxHeap heap;
-        for (auto const& item : items){
-            heap.insert(item.second);
-        }
         int found = 0;
         std::cout << "Top 3 Results: \n";
         while (!heap.isEmpty() && found < 3){
@@ -318,11 +313,18 @@ int main()
             std::cout << "No matches found based on your filters. \n";
         }
     } else if (type == 0){
-        ArrayQ arr;
-        for (auto const& item : items)
-            arr.insert(item.second);
-
-
+        std::cout << "Top 3 Results: \n";
+        int found = 0;
+        while (!arr.isEmpty() && found < 3){
+            data* movie = arr.extractMax();
+            if (checkFilter(movie, mov, year, beforeOrAfter, yearData, minRun, minRuntime, maxRun, maxRuntime, genre, genresWanted)){
+                std::cout << movie->getPrimaryTitle() << " (" << movie->getStartYear() << "), Rating: " << movie->getRating() << "\n";
+                found++;
+            }
+        }
+        if (found == 0){
+            std::cout << "No matches found based on your filters. \n";
+        }
     }
     return 0;
 }

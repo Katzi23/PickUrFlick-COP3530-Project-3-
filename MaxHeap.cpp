@@ -31,6 +31,7 @@ void MaxHeap::heapifyDown(int index) {
 
         if (largest != index) {
             std::swap(heap[index], heap[largest]);
+            index = largest;
         } else {
             break;
         }

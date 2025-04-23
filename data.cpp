@@ -119,3 +119,7 @@ float data::getRating() const
 {
     return this->rating;
 }
+
+int data::getVotes() const {
+    return this->numVotes;
+}

@@ -12,6 +12,7 @@ struct ArrayQ
     void deleteTop();
     // return the first element (has max rating)
     data* extractMax();
+    bool isEmpty();
 }
 ;
 
